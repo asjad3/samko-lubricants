@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import Link from "next/link";
-import { Check, ArrowRight, HelpCircle, ChevronDown } from "lucide-react";
+import { Check, ArrowRight, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import OilPricesWidget from "@/components/OilPricesWidget";
 
 const plans = [
   {
@@ -54,17 +55,39 @@ export default function PricesPage() {
         <div className={cn("absolute inset-0", isDark ? "bg-gradient-to-b from-industrial-dark to-industrial-darker" : "bg-gradient-to-b from-gray-100 to-white")} />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
-            <span className={cn("inline-block px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] mb-6",
+            <span className={cn("inline-block px-4 py-1.5 text-xs font-semibold uppercase tracking-widest mb-6",
               isDark ? "text-samko-yellow border-l-2 border-samko-yellow bg-samko-yellow/10" : "text-samko-dark-red border-l-2 border-samko-dark-red bg-samko-red/5")}>
               Pricing
             </span>
-            <h1 className={cn("font-heading text-4xl md:text-6xl font-semibold mb-6", isDark ? "text-white" : "text-gray-900")}>
+            <h1 className={cn("font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6", isDark ? "text-white" : "text-gray-900")}>
               Partnership <span className={isDark ? "text-samko-yellow" : "text-samko-dark-red"}>Plans</span>
             </h1>
-            <p className={cn("text-xl max-w-2xl mx-auto", isDark ? "text-gray-400" : "text-gray-600")}>
+            <p className={cn("text-lg md:text-xl max-w-2xl mx-auto", isDark ? "text-gray-400" : "text-gray-600")}>
               Flexible pricing options designed to meet your business needs
             </p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Oil Prices Widget */}
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-8"
+          >
+            <h2 className={cn("font-heading text-2xl md:text-3xl font-semibold mb-2", isDark ? "text-white" : "text-gray-900")}>
+              Live <span className={isDark ? "text-samko-yellow" : "text-samko-dark-red"}>Market Prices</span>
+            </h2>
+            <p className={cn("text-sm", isDark ? "text-gray-400" : "text-gray-600")}>
+              Real-time oil commodity prices that influence lubricant pricing
+            </p>
+          </motion.div>
+          <div className="max-w-2xl mx-auto">
+            <OilPricesWidget />
+          </div>
         </div>
       </section>
 
@@ -91,7 +114,7 @@ export default function PricesPage() {
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-3">
-                      <Check className={cn("w-4 h-4", isDark ? "text-samko-yellow" : "text-samko-dark-red")} />
+                      <Check className={cn("w-4 h-4 flex-shrink-0", isDark ? "text-samko-yellow" : "text-samko-dark-red")} />
                       <span className={cn("text-sm", isDark ? "text-gray-300" : "text-gray-700")}>{feature}</span>
                     </li>
                   ))}
@@ -112,7 +135,7 @@ export default function PricesPage() {
       <section id="faq" className={cn("py-20", isDark ? "bg-industrial-dark" : "bg-gray-50")}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-            <h2 className={cn("font-heading text-4xl font-semibold", isDark ? "text-white" : "text-gray-900")}>
+            <h2 className={cn("font-heading text-3xl md:text-4xl font-semibold", isDark ? "text-white" : "text-gray-900")}>
               Frequently Asked <span className={isDark ? "text-samko-yellow" : "text-samko-dark-red"}>Questions</span>
             </h2>
           </motion.div>
@@ -123,7 +146,7 @@ export default function PricesPage() {
                 <button onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   className="w-full flex items-center justify-between p-6 text-left">
                   <span className={cn("font-semibold", isDark ? "text-white" : "text-gray-900")}>{faq.question}</span>
-                  <ChevronDown className={cn("w-5 h-5 transition-transform", openFaq === index && "rotate-180", isDark ? "text-gray-400" : "text-gray-500")} />
+                  <ChevronDown className={cn("w-5 h-5 transition-transform flex-shrink-0", openFaq === index && "rotate-180", isDark ? "text-gray-400" : "text-gray-500")} />
                 </button>
                 {openFaq === index && (
                   <div className={cn("px-6 pb-6", isDark ? "text-gray-400" : "text-gray-600")}>
@@ -139,7 +162,7 @@ export default function PricesPage() {
       {/* CTA */}
       <section className="py-20 bg-gradient-to-r from-samko-yellow via-samko-gold to-samko-yellow">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-heading text-3xl md:text-4xl font-semibold text-industrial-dark mb-4">Need a Custom Quote?</h2>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-industrial-dark mb-4">Need a Custom Quote?</h2>
           <p className="text-lg text-industrial-dark/70 mb-8">Our team will create a tailored solution for your requirements</p>
           <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3.5 bg-industrial-dark text-white font-semibold text-sm hover:bg-industrial-darker transition-colors">
             Request Custom Quote <ArrowRight className="w-4 h-4" />
